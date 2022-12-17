@@ -11,8 +11,9 @@ import hello.core.order.OrderServiceImpl;
 public class OrderApp {
 
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
-        OrderService orderService = new OrderServiceImpl();
+        Appconfig appConfig = new Appconfig();
+        MemberService memberService = appConfig.memberService(); //이제 memberService, orderService는 config클래스를 통해 받아야 함
+        OrderService orderService = appConfig.orderService();
 
         Long memberId = 1L;
         Member member = new Member(memberId, "memberA", Grade.VIP);
