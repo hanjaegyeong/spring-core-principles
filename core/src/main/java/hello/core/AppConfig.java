@@ -1,7 +1,6 @@
 package hello.core;
 
 import hello.core.discount.DiscountPolicy;
-import hello.core.discount.FixDiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
@@ -15,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 //config클래스는 생성한 객체 인스턴스의 참조(래퍼런스)를 생성자를 통해 주입해준다
 //Configuration 애노테이션을 통해 구성정보로 담당시키고, Bean을 통해 스프링 컨테이너로 등록
 @Configuration
-public class Appconfig {
+public class AppConfig {
 
     @Bean
     public MemberService memberService() { //역할
