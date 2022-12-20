@@ -29,4 +29,13 @@ public class ConfigurationSingletonTest {
         Assertions.assertThat(memberService.getMemberRepository()).isSameAs(memberRepository);
         Assertions.assertThat(orderService.getMemberRepository()).isSameAs(memberRepository);
     }
+    
+    @Test
+    void configurationDeep() {
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        AppConfig bean = ac.getBean(AppConfig.class);
+        System.out.println("bean.getClass() = " + bean.getClass());
+        //class hello.core.AppConfig까지만 리턴돼야 하는데 class hello.core.AppConfig$$SpringCGLIB$$0 리턴
+        //즉 스프링에서 조작 라이브러리(CGLIB)를 사용해서 AppConfig클래스 상속받은 가짜 스프링 빈을 등록
+    }
 }
