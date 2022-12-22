@@ -6,20 +6,18 @@ import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor //롬북기능. final 붙은 필드의 생성자 자동 생성해줌. 즉 autowired해서 생성자주입할 필요x
 public class OrderServiceImpl implements OrderService{
 
     private final MemberRepository memberRepository ; //추상화에만 의존하도록
     private final DiscountPolicy discountPolicy; //추상화에만 의존하도록
 
-    @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) { //생성자 주입으로 구현체 받음
-        this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
-    }
+    //생성자 제거
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
