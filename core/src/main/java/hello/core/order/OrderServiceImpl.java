@@ -11,13 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor //롬북기능. final 붙은 필드의 생성자 자동 생성해줌. 즉 autowired해서 생성자주입할 필요x
 public class OrderServiceImpl implements OrderService{
 
     private final MemberRepository memberRepository ; //추상화에만 의존하도록
     private final DiscountPolicy discountPolicy; //추상화에만 의존하도록
 
-    //생성자 제거
+    @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy rateDiscountPolicy) { 
+        //스프링 빈 중복조회문제를 Autowired에 파라미터명 매칭으로 해결: rateDiscountPolicy 명시
+        this.memberRepository = memberRepository;
+        this.discountPolicy = rateDiscountPolicy;
+    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
