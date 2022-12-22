@@ -8,6 +8,7 @@ import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,10 +18,10 @@ public class OrderServiceImpl implements OrderService{
     private final DiscountPolicy discountPolicy; //추상화에만 의존하도록
 
     @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy rateDiscountPolicy) { 
-        //스프링 빈 중복조회문제를 Autowired에 파라미터명 매칭으로 해결: rateDiscountPolicy 명시
+    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy DiscountPolicy) {
+        // @Qualifier 매칭
         this.memberRepository = memberRepository;
-        this.discountPolicy = rateDiscountPolicy;
+        this.discountPolicy = DiscountPolicy;
     }
 
     @Override
