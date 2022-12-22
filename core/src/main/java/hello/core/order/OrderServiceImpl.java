@@ -18,8 +18,7 @@ public class OrderServiceImpl implements OrderService{
     private final DiscountPolicy discountPolicy; //추상화에만 의존하도록
 
     @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy DiscountPolicy) {
-        // @Qualifier 매칭
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy DiscountPolicy) { //Policy 중복타입_우선순위 지정 @Primary로 rateDiscount선택됨
         this.memberRepository = memberRepository;
         this.discountPolicy = DiscountPolicy;
     }
