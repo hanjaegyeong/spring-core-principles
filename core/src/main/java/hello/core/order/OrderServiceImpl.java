@@ -1,5 +1,6 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
@@ -18,7 +19,7 @@ public class OrderServiceImpl implements OrderService{
     private final DiscountPolicy discountPolicy; //추상화에만 의존하도록
 
     @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy DiscountPolicy) { //Policy 중복타입_우선순위 지정 @Primary로 rateDiscount선택됨
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy DiscountPolicy) { //자체제작 애노테이션 이용
         this.memberRepository = memberRepository;
         this.discountPolicy = DiscountPolicy;
     }

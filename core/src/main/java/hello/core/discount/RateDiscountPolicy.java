@@ -1,13 +1,13 @@
 package hello.core.discount;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.member.Grade;
 import hello.core.member.Member;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-// 중복타입빈_우선순위 지정 @Primary
-@Primary
+@MainDiscountPolicy //자체 제작 애노테이션 이용
 @Component
 public class RateDiscountPolicy implements DiscountPolicy {
 
