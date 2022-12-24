@@ -1,6 +1,11 @@
 package hello.core.lifecycle;
 
-public class NetworkClient {
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+
+//InitializingBean, DisposableBean 인터페이스 이용해서 빈 생명주기 콜백
+//요즘엔 거의 사용하지 않음
+public class NetworkClient implements InitializingBean, DisposableBean {
 
     private String url;
 
@@ -26,5 +31,18 @@ public class NetworkClient {
     //서비스 종료시 호출
     public void disconnect() {
         System.out.println("close: " + url);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception { //의존관계 주입이 끝나면 호출
+        System.out.println("NetworkClient.afterPropertiesSet");
+        connect();
+        call("초기화 연결 메시지");
+    }
+
+    @Override
+    public void destroy() throws Exception { //빈 종료 시 호출
+        System.out.println("NetworkClient.destroy");
+        disconnect();
     }
 }
