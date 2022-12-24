@@ -1,2 +1,2 @@
-# spring-key-principles-basic
-basic spring key principles
+# spring-core-principles
+spring core principles
