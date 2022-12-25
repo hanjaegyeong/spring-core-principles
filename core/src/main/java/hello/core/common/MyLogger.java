@@ -4,6 +4,7 @@ import ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -13,7 +14,9 @@ import java.util.UUID;
 
 // 로그를 출력하기 위한 MyLogger 클래스
 @Component
-@Scope(value = "request") // 리퀘스트 스코프 지정 -> 이 빈은 HTTP 요청 당 하나씩 생성되고, HTTP 요청이 끝나는 시점에 소멸
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)  //proxyMode지정: provider로 안받아줘도 myLogger 주입 오류 안뜨고 제대로 동작
+// CGLIB로 MyLogger를 상속받은 가짜 프록시객체 생성하고 스프링 객체로 등록되고, 주입됨
+// 리퀘스트 스코프 지정 -> 이 빈은 HTTP 요청 당 하나씩 생성되고, HTTP 요청이 끝나는 시점에 소멸
 public class MyLogger {  // 웹 접속 URL 로그 띄우기.
 
     private String uuid; // 안겹치는 ID부여
